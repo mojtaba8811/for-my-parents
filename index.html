@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>هدیه به پدر و مادر عزیزم</title>
+    <title>هدیه به بهترین های دنیا | پدر و مادر عزیزم</title>
     <style>
         * {
             margin: 0;
@@ -27,6 +27,29 @@
             100% { background-position: 0% 50%; }
         }
 
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            50% { transform: translateY(-100px) rotate(180deg); opacity: 1; }
+        }
+
         .header {
             text-align: center;
             padding: 80px 20px 40px;
@@ -45,6 +68,12 @@
             to { text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6; }
         }
 
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            animation: fadeInUp 2s ease;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -61,10 +90,39 @@
             padding: 25px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .card:hover::before {
+            left: 100%;
         }
 
         .card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ffeb3b;
+        }
+
+        .card p {
+            line-height: 1.8;
+            font-size: 1rem;
         }
 
         .gallery {
@@ -78,13 +136,24 @@
             height: 120px;
             border-radius: 10px;
             overflow: hidden;
+            position: relative;
             cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .photo:hover {
+            transform: scale(1.05);
         }
 
         .photo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .photo:hover img {
+            transform: scale(1.1);
         }
 
         .btn {
@@ -92,88 +161,308 @@
             padding: 12px 25px;
             background: linear-gradient(45deg, #ff6b6b, #ffa726);
             color: white;
+            text-decoration: none;
             border-radius: 25px;
             font-weight: bold;
             margin: 8px 5px;
+            transition: all 0.3s ease;
             border: none;
             cursor: pointer;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
-        .music-player {
-            width: 100%;
-            margin: 15px 0;
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
 
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 1s ease;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s ease infinite;
+            display: inline-block;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* ریسپانسیو برای موبایل */
         @media (max-width: 768px) {
+            .title {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
             .container {
                 grid-template-columns: 1fr;
+                padding: 15px;
+                gap: 15px;
             }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .card h2 {
+                font-size: 1.3rem;
+            }
+            
             .gallery {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
+            .photo {
+                height: 100px;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+                width: 100%;
+                margin: 5px 0;
+            }
+            
+            .header {
+                padding: 60px 15px 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .photo {
+                height: 150px;
+            }
+        }
+
+        /* استایل برای پخش کننده صدا */
+        .music-player {
+            width: 100%;
+            margin: 15px 0;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+        }
+
+        audio {
+            width: 100%;
+            border-radius: 25px;
         }
     </style>
 </head>
 <body>
+    <div class="particles" id="particles"></div>
+
     <header class="header">
         <h1 class="title">پدر و مادر نازنینم</h1>
         <p class="subtitle">این صفحه کوچک، نشانه‌ای از عشق بی‌پایان من به شماست</p>
     </header>
 
     <div class="container">
-        <!-- 🎯 قسمت عکس -->
-        <div class="card">
+        <div class="card fade-in">
+            <h2>💖 قدردانی از محبت‌هایتان</h2>
+            <p>برای تمام شب‌هایی که بیدار ماندید، برای تمام نگرانی‌هایی که کشیدید، برای تمام عشقی که بی‌چشم‌داشت دادید... از شما سپاسگزارم.</p>
+        </div>
+
+        <div class="card fade-in" style="animation-delay: 0.2s;">
+            <h2>🌟 شما قهرمانان من هستید</h2>
+            <p>در دل من، شما بزرگ‌ترین قهرمانان دنیا هستید. کسانی که با ساده‌ترین چیزها، عمیق‌ترین خوشحالی‌ها را برایم ساختید.</p>
+        </div>
+
+        <div class="card fade-in" style="animation-delay: 0.4s;">
             <h2>📸 گالری خاطرات زیبا</h2>
             <div class="gallery">
                 <div class="photo">
-                    <img src="https://اینجا-لینک-عکس-1000011928-رو-قرار-بده.jpg" 
-                         alt="خاطره زیبا با خانواده" 
-                         onclick="openModal(this)">
+                    <!-- عکس اول خودت رو اینجا قرار بده -->
+                    <img src="https://via.placeholder.com/300x200/ff6b6b/white?text=عکس+خانوادگی" alt="خاطره زیبا" onclick="openModal(this)">
+                </div>
+                <div class="photo">
+                    <!-- عکس دوم خودت رو اینجا قرار بده -->
+                    <img src="https://via.placeholder.com/300x200/4ecdc4/white?text=خاطره+قشنگ" alt="خاطره زیبا" onclick="openModal(this)">
+                </div>
+                <div class="photo">
+                    <!-- عکس سوم خودت رو اینجا قرار بده -->
+                    <img src="https://via.placeholder.com/300x200/45b7d1/white?text=لحظه+های+خوش" alt="خاطره زیبا" onclick="openModal(this)">
+                </div>
+                <div class="photo">
+                    <!-- عکس چهارم خودت رو اینجا قرار بده -->
+                    <img src="https://via.placeholder.com/300x200/9966cc/white?text=یادگاری+ما" alt="خاطره زیبا" onclick="openModal(this)">
                 </div>
             </div>
-            <p style="margin-top: 10px; color: #ffeb3b; font-size: 0.9em;">
-                💡 بعد از آپلود عکس در imgbb.com، لینکش رو بالاتر قرار بده
-            </p>
         </div>
 
-        <!-- 🎵 قسمت آهنگ -->
-        <div class="card">
-            <h2>🎵 موسیقی مورد علاقه</h2>
-            <p>آهنگ قشنگ "روایای زمانه" برای شما</p>
+        <div class="card fade-in" style="animation-delay: 0.6s;">
+            <h2>🎵 موسیقی‌های مورد علاقه</h2>
+            <p>آهنگ‌های زیبایی که خاطراتمان با آنها گره خورده...</p>
+            
             <div class="music-player">
-                <audio controls style="width: 100%;">
-                    <source src="https://اینجا-لینک-آهنگ-خ05-Rosvaye-Zamaneh-رو-قرار-بده.mp3" type="audio/mp3">
+                <audio controls>
+                    <!-- آهنگ خودت رو اینجا قرار بده -->
+                    <source src="آدرس-آهنگ-شما.mp3" type="audio/mp3">
                     مرورگر شما از پخش کننده صدا پشتیبانی نمی‌کند
                 </audio>
             </div>
-            <p style="margin-top: 10px; color: #ffeb3b; font-size: 0.9em;">
-                💡 بعد از آپلود آهنگ در گوگل درایو، لینکش رو بالاتر قرار بده
-            </p>
+            
+            <button class="btn" onclick="showMusicMessage()">لیست آهنگ‌های ویژه</button>
         </div>
 
-        <!-- سایر قسمت‌ها -->
-        <div class="card">
-            <h2>💖 پیام من به شما</h2>
-            <p>پدر و مادر عزیزم، شما بهترین هدیه خدا در زندگی من هستید. هر چه دارم از الطاف شماست...</p>
-            <button class="btn" onclick="showLoveMessage()">خواندن پیام عاشقانه</button>
+        <div class="card fade-in" style="animation-delay: 0.8s;">
+            <h2>📝 پیام خصوصی برای شما</h2>
+            <p>مادر جان، پدر جان... می‌دانم که هیچ‌گاه نتوانستم حق محبت‌هایتان را ادا کنم...</p>
+            <button class="btn" onclick="showSecretMessage()">خواندن پیام محرمانه</button>
+        </div>
+
+        <div class="card fade-in" style="animation-delay: 1s;">
+            <h2>🎉 شمارشگر خاطرات خوش</h2>
+            <p id="memoryCounter">ما <span id="daysCount" style="font-size: 1.5em; color: #ffeb3b;">0</span> روز است که در کنار هم خوشبختیم!</p>
+            <button class="btn" onclick="addMemory()">➕ اضافه کردن یک روز خوش</button>
         </div>
     </div>
 
+    <!-- مودال برای نمایش عکس بزرگ -->
+    <div id="imageModal" class="modal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9);">
+        <span style="position: absolute; top: 15px; right: 35px; color: white; font-size: 40px; font-weight: bold; cursor: pointer;" onclick="closeModal()">&times;</span>
+        <img style="margin: auto; display: block; width: 90%; max-width: 700px; max-height: 80%; margin-top: 5%;" id="modalImage">
+    </div>
+
+    <footer class="footer">
+        <p>ساخته شده با <span class="heart">❤️</span> توسط فرزندتان</p>
+        <p>هر لحظه از زندگیم موهبتی از سوی شماست</p>
+    </footer>
+
     <script>
-        function openModal(img) {
-            window.open(img.src, '_blank');
+        // ایجاد ذرات درخشان
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.width = Math.random() * 4 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particlesContainer.appendChild(particle);
+            }
         }
 
-        function showLoveMessage() {
+        // نمایش پیام محرمانه
+        function showSecretMessage() {
             const messages = [
-                "دوستت دارم بیشتر از هر چیزی توی این دنیا!",
+                "شما بهترین هدیه خدا به من بودید...",
+                "دوستت دارم بیشتر از هر چیزی در این دنیا!",
                 "وجودم مدیون محبت‌های بی‌پایان شماست",
+                "هرگز نمی‌توانم از الطاف شما جبران کنم",
                 "شما خانه اول و آخر من هستید...",
-                "همیشه باعث افتخار من بودید و هستید"
+                "همیشه باعث افتخار من بودید و هستید",
+                "محبت‌هایتان را هرگز فراموش نمی‌کنم"
             ];
             const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-            alert(`💌 پیام خصوصی:\n\n${randomMessage}`);
+            alert(`💌 پیام محرمانه:\n\n${randomMessage}`);
         }
+
+        function showMusicMessage() {
+            alert('🎵 آهنگ‌های ویژه ما:\n\n• آهنگ خاطره انگیز خانواده\n• آهنگ مورد علاقه پدر\n• آهنگ مورد علاقه مادر\n• آهنگ‌های دوران کودکی');
+        }
+
+        // شمارشگر خاطرات
+        let daysCount = 1;
+        function addMemory() {
+            daysCount++;
+            document.getElementById('daysCount').textContent = daysCount;
+            
+            // افکت جشن
+            for(let i = 0; i < 15; i++) {
+                createConfetti();
+            }
+            
+            alert(`🎉 چه خوب! حالا ${daysCount} روز خوش با هم داشتیم!`);
+        }
+
+        // ایجاد کاغذ رنگی
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.width = '8px';
+            confetti.style.height = '8px';
+            confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            confetti.style.borderRadius = '50%';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.top = '-10px';
+            confetti.style.zIndex = '9999';
+            confetti.style.animation = `confettiFall ${Math.random() * 2 + 1}s linear forwards`;
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => confetti.remove(), 3000);
+        }
+
+        // اضافه کردن استایل انیمیشن confetti
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes confettiFall {
+                to {
+                    transform: translateY(100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // functions for image modal
+        function openModal(img) {
+            document.getElementById('modalImage').src = img.src;
+            document.getElementById('imageModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // بستن مودال با کلیک بیرون از عکس
+        document.getElementById('imageModal').onclick = function(event) {
+            if (event.target === this) {
+                closeModal();
+            }
+        };
+
+        // مقداردهی اولیه
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            document.getElementById('daysCount').textContent = daysCount;
+        });
     </script>
 </body>
 </html>
